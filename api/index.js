@@ -1,10 +1,9 @@
 const express = require("express");
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const app = express();
-const config = {
-  key: "miclaveultrasecreta123*",
-};
-app.set("key", config.key);
+
+app.set("key", process.env.SECRET_KEY);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -14,7 +13,7 @@ function authenticateToken(req, res, next) {
 
   if (token == null) return res.sendStatus(401);
 
-  jwt.verify(token, config.key, (err, user) => {
+  jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
     console.log(err);
 
     if (err) return res.sendStatus(403);
