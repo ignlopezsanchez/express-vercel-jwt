@@ -25,6 +25,7 @@ function authenticateToken(req, res, next) {
 }
 
 app.post("/api/login", (req, res) => {
+  console.log("secret ", process.env.SECRET_KEY);
   if (req.body.user === "mock_user" && req.body.password === "mock_password") {
     const payload = {
       check: true,
