@@ -9,7 +9,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 function authenticateToken(req, res, next) {
-  console.log({ res });
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -27,7 +26,6 @@ function authenticateToken(req, res, next) {
 }
 
 app.post("/api/login", (req, res) => {
-  console.log("body ", req.body);
   if (req.body.user === "mock_user" && req.body.password === "mock_password") {
     const payload = {
       check: true,
