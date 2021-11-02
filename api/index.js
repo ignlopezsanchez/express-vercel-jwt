@@ -1,14 +1,10 @@
-import express, { urlencoded, json } from "express";
-import { sign } from "jsonwebtoken";
-import { key } from "./configs/config";
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const config = require("./configs/config");
 const app = express();
-app.set("key", key);
-app.use(urlencoded({ extended: false }));
-app.use(json());
-
-app.get("/api", (req, res) => {
-  res.json({ hola: "pepe" });
-});
+app.set("key", config.key);
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 /* const protectedRoutes = express.Router();
 protectedRoutes.use((req, res, next) => {
@@ -37,7 +33,7 @@ app.post("/api/login", (req, res) => {
     const payload = {
       check: true,
     };
-    const token = sign(payload, app.get("key"), {
+    const token = jwt.sign(payload, app.get("key"), {
       expiresIn: 1440,
     });
     res.json({
@@ -57,4 +53,4 @@ app.get("/api/users", (req, res) => {
 
   res.json(users);
 });
-export default app;
+module.exports = app;
