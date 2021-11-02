@@ -31,6 +31,7 @@ protectedRoutes.use((req, res, next) => {
 });
 
 app.post("/api/login", (req, res) => {
+  console.log("body ", req.body);
   if (req.body.user === "mock_user" && req.body.password === "mock_password") {
     const payload = {
       check: true,
