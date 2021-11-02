@@ -1,9 +1,16 @@
 const express = require("express");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
 const app = express();
 
 app.set("key", process.env.SECRET_KEY);
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
