@@ -1,7 +1,9 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const config = require("./configs/config");
 const app = express();
+const config = {
+  key: "miclaveultrasecreta123*",
+};
 app.set("key", config.key);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
