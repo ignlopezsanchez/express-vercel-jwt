@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const config = require("./configs/config");
 const app = express();
 app.set("key", config.key);
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 app.use(app.json());
 
 app.get("/api", (req, res) => {
