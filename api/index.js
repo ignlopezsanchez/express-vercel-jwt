@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 function authenticateToken(req, res, next) {
+  console.log({ res });
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
