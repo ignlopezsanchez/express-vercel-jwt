@@ -10,7 +10,7 @@ app.get("/api", (req, res) => {
   res.json({ hola: "pepe" });
 });
 
-const protectedRoutes = express.Router();
+/* const protectedRoutes = express.Router();
 protectedRoutes.use((req, res, next) => {
   const token = req.headers["access-token"];
 
@@ -29,6 +29,7 @@ protectedRoutes.use((req, res, next) => {
     });
   }
 });
+*/
 
 app.post("/api/login", (req, res) => {
   console.log("body ", req.body);
@@ -47,7 +48,7 @@ app.post("/api/login", (req, res) => {
     res.json({ message: "User or password not found" });
   }
 });
-app.get("/api/users", protectedRoutes, (req, res) => {
+app.get("/api/users", (req, res) => {
   const users = [
     { id: 1, name: "Asfo" },
     { id: 2, name: "Denisse" },
