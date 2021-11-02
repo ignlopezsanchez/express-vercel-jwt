@@ -4,7 +4,7 @@ const config = require("./configs/config");
 const app = express();
 app.set("key", config.key);
 app.use(express.urlencoded({ extended: false }));
-app.use(app.json());
+app.use(express.json());
 
 app.get("/api", (req, res) => {
   res.json({ hola: "pepe" });
