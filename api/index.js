@@ -53,7 +53,7 @@ app.post("/api/login", (req, res) => {
     res.json({ message: "User or password not found" });
   }
 });
-app.get("/api/users", rutasProtegidas, (req, res) => {
+app.get("/api/users", protectedRoutes, (req, res) => {
   const users = [
     { id: 1, name: "Asfo" },
     { id: 2, name: "Denisse" },
