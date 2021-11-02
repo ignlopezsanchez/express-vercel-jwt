@@ -8,25 +8,22 @@ app.set("key", config.key);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const protectedRoutes = express.Router();
-protectedRoutes.use((req, res, next) => {
-  const token = req.headers["access-token"];
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
-  if (token) {
-    jwt.verify(token, app.get("key"), (err, decoded) => {
-      if (err) {
-        return res.json({ message: "Token not valid" });
-      } else {
-        req.decoded = decoded;
-        next();
-      }
-    });
-  } else {
-    res.send({
-      message: "Token not provided.",
-    });
-  }
-});
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+    console.log(err);
+
+    if (err) return res.sendStatus(403);
+
+    req.user = user;
+
+    next();
+  });
+}
 
 app.post("/api/login", (req, res) => {
   console.log("body ", req.body);
@@ -45,7 +42,7 @@ app.post("/api/login", (req, res) => {
     res.json({ message: "User or password not found" });
   }
 });
-app.get("/api/users", protectedRoutes, (req, res) => {
+app.get("/api/users", authenticateToken, (req, res) => {
   const users = [
     { id: 1, name: "Asfo" },
     { id: 2, name: "Denisse" },
