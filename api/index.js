@@ -2,8 +2,7 @@ const app = require("express")();
 const { v4 } = require("uuid");
 const express = require("express"),
   jwt = require("jsonwebtoken"),
-  config = require("./configs/config"),
-  app = express();
+  config = require("./configs/config");
 app.set("key", config.key);
 app.use(express.urlencoded());
 app.use(express.json());
